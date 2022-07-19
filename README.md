@@ -27,6 +27,7 @@ docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888:8888 -
 -reducer 'python reducer.py' 
 -file mapper.py 
 -file reducer.py
+#reference https://www.geeksforgeeks.org/hadoop-streaming-using-python-word-count-problem/
 
 [root@quickstart mnt]# hadoop fs -cat /home/cloudera/data/wc/part-00000
 
