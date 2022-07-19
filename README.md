@@ -3,7 +3,7 @@ We already install cloudera docker
 
 #start clouder docker </br>
 
-sudo su - </br>
+> sudo su - </br>
 <!--
 https://docs.cloudera.com/documentation/enterprise/6/6.3/topics/cdh_ports.html
 docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888:8888 -p 7180:7180 -p 80:80 4239cd2958c6 /usr/bin/docker-quickstart </br>
@@ -14,17 +14,20 @@ docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888:8888 -
 -p 8020:8020 -p 8032:8032 -p 802:8042 -p 8088:8088 -p 8983:8983 -p 9083:9083 4239cd2958c6 /usr/bin/docker-quickstart
 
 -->
-docker run -v /root:/mnt --hostname=quickstart.cloudera --privileged=true -t -i -p 9092 -p 2181 -p 11123 cloudera/quickstart /usr/bin/docker-quickstart </br>
+> docker run -v /root:/mnt --hostname=quickstart.cloudera --privileged=true -t -i -p 9092 -p 2181 -p 11123 cloudera/quickstart /usr/bin/docker-quickstart </br>
 
 [root@quickstart]# cd /mnt
 [root@quickstart mnt]# hadoop fs -mkdir -p /home/cloudera/data
 [root@quickstart mnt]# hadoop fs -put test.txt /home/cloudera/data/test.txt
 
-hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar 
+[root@quickstart mnt]# hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar 
 -input /home/cloudera/data/test.txt 
 -output /home/cloudera/data/wc 
 -mapper 'python mapper.py' 
 -reducer 'python reducer.py' 
 -file mapper.py 
 -file reducer.py
+
+[root@quickstart mnt]# hadoop fs -cat /home/cloudera/data/wc/part-00000
+
 
