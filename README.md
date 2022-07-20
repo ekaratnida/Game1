@@ -16,17 +16,17 @@ docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888:8888 -
 -->
 > docker run -v /root:/mnt --hostname=quickstart.cloudera --privileged=true -t -i -p 9092 -p 2181 -p 11123 cloudera/quickstart /usr/bin/docker-quickstart </br>
 
-[root@quickstart]# cd /mnt
-[root@quickstart mnt]# hadoop fs -mkdir -p /home/cloudera/data
-[root@quickstart mnt]# hadoop fs -put test.txt /home/cloudera/data/test.txt
+[root@quickstart]# cd /mnt </br>
+[root@quickstart mnt]# hadoop fs -mkdir -p /home/cloudera/data </br>
+[root@quickstart mnt]# hadoop fs -put test.txt /home/cloudera/data/test.txt </br>
 
-[root@quickstart mnt]# hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar 
--input /home/cloudera/data/test.txt 
--output /home/cloudera/data/wc 
--mapper 'python mapper.py' 
--reducer 'python reducer.py' 
--file mapper.py 
--file reducer.py
+[root@quickstart mnt]# hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar  </br>
+-input /home/cloudera/data/test.txt  </br>
+-output /home/cloudera/data/wc  </br>
+-mapper 'python mapper.py'  </br>
+-reducer 'python reducer.py'  </br>
+-file mapper.py  </br>
+-file reducer.py </br>
 #reference https://www.geeksforgeeks.org/hadoop-streaming-using-python-word-count-problem/
 
 [root@quickstart mnt]# hadoop fs -cat /home/cloudera/data/wc/part-00000
