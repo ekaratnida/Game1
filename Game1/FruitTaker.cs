@@ -1,4 +1,6 @@
-﻿using Game1.GUI;
+﻿using Game1.Control;
+using Game1.Entity;
+using Game1.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,6 +17,7 @@ namespace Game1
         private SpriteBatch _spriteBatch;
 
         Player player;
+        //Input input; 
 
         int screenWidth = 1024;
         int screenHeight = 768;
@@ -23,12 +26,15 @@ namespace Game1
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            player = new Player(screenWidth/2, screenHeight/2);
+            player = new Player(
+                    new Vector2(screenWidth/2, screenHeight/2),
+                    new Vector2(200,0)
+                );
+            //input = new Input();
         }
 
         protected override void Initialize()
         {
-
             _graphics.PreferredBackBufferWidth = screenWidth;
             _graphics.PreferredBackBufferHeight = screenHeight;
             _graphics.ApplyChanges();
@@ -42,6 +48,7 @@ namespace Game1
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             font1 = Content.Load<SpriteFont>("tileFont");
+
             player.loadContent(Content);
 
         }
@@ -64,7 +71,7 @@ namespace Game1
             _spriteBatch.Begin();
 
             if (System.Diagnostics.Debugger.IsAttached)
-                _spriteBatch.DrawString(font1, "Test", new Vector2(10, 10), Color.Black);
+                _spriteBatch.DrawString(font1, "Test Font", new Vector2(10, 10), Color.DarkRed);
 
             player.Draw(_spriteBatch);
 
