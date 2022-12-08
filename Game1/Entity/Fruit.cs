@@ -9,24 +9,64 @@ using System.Threading.Tasks;
 
 namespace Game1.Entity
 {
+    public enum FruitType
+    {
+        good,
+        bad
+    }
+
     public class Fruit : GameObject
     {
 
-        public Fruit() { }
+        //Texture2D playerTexture;
+        Vector2 speed;
+        FruitType type;
+
+        public Fruit(Vector2 pos, Vector2 speed, FruitType type)
+        {
+            position = pos;
+            this.speed = speed;
+            this.type = type;
+        }
 
         public override void Draw(SpriteBatch _spriteBatch)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            Rectangle? rect = null;
+            if (this.type == FruitType.good)//Good apple
+            {
+                rect = new Rectangle(0, 0, objTexture.Width, objTexture.Height/2);
+            }
+            else
+            {
+                rect = new Rectangle(0, objTexture.Height/2, objTexture.Width, objTexture.Height/2);
+            }
+
+            _spriteBatch.Draw(
+              objTexture,
+              new Rectangle(
+                  (int)position.X,
+                  (int)position.Y,
+                  objTexture.Width, 
+                  objTexture.Height/2),
+              rect,
+              Color.White
+            );
         }
 
         public override void loadContent(ContentManager cmngr)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            objTexture = cmngr.Load<Texture2D>("Fruit");
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            float totalSecond = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            position.Y += this.speed.Y * totalSecond;
         }
     }
 }

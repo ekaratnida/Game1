@@ -17,7 +17,7 @@ namespace Game1
         private SpriteBatch _spriteBatch;
 
         Player player;
-        //Input input; 
+        Fruit fruit;
 
         int screenWidth = 1024;
         int screenHeight = 768;
@@ -30,7 +30,11 @@ namespace Game1
                     new Vector2(screenWidth/2, screenHeight/2),
                     new Vector2(200,0)
                 );
-            //input = new Input();
+            fruit = new Fruit(
+                    new Vector2(0, screenHeight / 3),
+                    new Vector2(0, 100),
+                    FruitType.good
+                );
         }
 
         protected override void Initialize()
@@ -50,6 +54,7 @@ namespace Game1
             font1 = Content.Load<SpriteFont>("tileFont");
 
             player.loadContent(Content);
+            fruit.loadContent(Content);
 
         }
 
@@ -59,6 +64,7 @@ namespace Game1
                 Exit();
 
             player.Update(gameTime);
+            fruit.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -74,6 +80,8 @@ namespace Game1
                 _spriteBatch.DrawString(font1, "Test Font", new Vector2(10, 10), Color.DarkRed);
 
             player.Draw(_spriteBatch);
+
+            fruit.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
