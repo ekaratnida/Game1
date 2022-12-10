@@ -33,7 +33,7 @@ namespace Game1
             fruit = new Fruit(
                     new Vector2(0, screenHeight / 3),
                     new Vector2(0, 100),
-                    FruitType.good
+                    FruitType.Apple
                 );
         }
 

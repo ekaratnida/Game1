@@ -11,8 +11,8 @@ namespace Game1.Entity
 {
     public enum FruitType
     {
-        good,
-        bad
+        Apple,
+        Toxic
     }
 
     public class Fruit : GameObject
@@ -34,7 +34,7 @@ namespace Game1.Entity
             //throw new NotImplementedException();
 
             Rectangle? rect = null;
-            if (this.type == FruitType.good)//Good apple
+            if (this.type == FruitType.Apple)//Good apple
             {
                 rect = new Rectangle(0, 0, objTexture.Width, objTexture.Height/2);
             }
