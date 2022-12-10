@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="https://pixijs.download/release/pixi.min.js"></script>
+  </head>
+  <body>
+    <script>
+      let app;
+      let player;
+      let keys = {}
+
+      window.onload = function() {
+        // Create the application helper and add its render target to the page
+        app = new PIXI.Application({ width: 800, height: 450 });
+        document.body.appendChild(app.view);
+        
+        // initialize background sprite
+        
+        const texture = PIXI.Texture.from('images/sprites/background.png');
+
+        // create a new Sprite using the video texture (yes it's that easy)
+        const background = new PIXI.Sprite(texture);
+
+        // Stetch the fullscreen
+        
+        background.anchor.set(0.5);
+        background.x = app.screen.width / 2;
+        background.y = app.screen.height / 2;
+        background.width = app.screen.width;
+        background.height = app.screen.height;
+        app.stage.addChild(background);
+
+        //Player
+
+        player = PIXI.Sprite.from('player2.png');
+        player.anchor.set(0.5);
+        player.x = app.screen.width / 2;
+        player.y = app.screen.height - 50;
+        
+        player.scale.x = 0.1;
+        player.scale.y = 0.1;
+        
+        app.stage.addChild(player);
+
+        window.addEventListener("keydown", keysDown);
+        window.addEventListener("keyup", keysUp);
+
+        app.ticker.add(gameLoop);
+
+        /*let elapsed = 0.0;
+        app.ticker.add((delta) => {
+          console.info("delta = " + delta);
+          elapsed += delta;
+          console.info("elapsed = " + elapsed);
+          sprite.x = 200.0 + Math.cos(elapsed/50.0) * 100.0;
+        });*/ 
+      }
+
+      function keysDown(e) {
+          keys[e.keyCode] = true;
+      }
+
+      function keysUp(e) {
+        keys[e.keyCode] = false;
+      }
+
+      function gameLoop() {
+        //console.info(JSON.stringify(keys));
+        if (keys["65"]){
+          player.x -= 5;
+        }
+
+        if (keys["68"]){
+          player.x += 5;
+        }
+      }
+
+    </script>
+  </body>
+</html>
