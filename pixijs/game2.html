@@ -1,16 +1,31 @@
 <!doctype html>
 <html>
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://pixijs.download/release/pixi.min.js"></script>
     <script src="Player.js"></script>
   </head>
   <body>
     <script>
+
+      /*
+      var settings = {
+        "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+        "method": "GET",
+        "timeout": 0,
+      };
+      var price;
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        price = response;
+      });
+      */
+
       let app;
       let player;
       let keys = {}
 
-      
       window.onload = function() {
         // Create the application helper and add its render target to the page
         app = new PIXI.Application({ width: 800, height: 400, background: '#1099bb' });
@@ -60,8 +75,15 @@
 
       function gameLoop(delta) {
         //console.info(JSON.stringify(keys));
+
+        /*$.ajax(settings).done(function (response) {
+            console.log(response);
+            //price = response;
+        });*/
+
         if (keys["65"]){
           player.moveLeft()
+         
         }
 
         if (keys["68"]){
