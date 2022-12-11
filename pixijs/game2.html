@@ -2,6 +2,7 @@
 <html>
   <head>
     <script src="https://pixijs.download/release/pixi.min.js"></script>
+    <script src="Player.js"></script>
   </head>
   <body>
     <script>
@@ -9,51 +10,44 @@
       let player;
       let keys = {}
 
+      
       window.onload = function() {
         // Create the application helper and add its render target to the page
-        app = new PIXI.Application({ width: 800, height: 450 });
+        app = new PIXI.Application({ width: 800, height: 400, background: '#1099bb' });
         document.body.appendChild(app.view);
         
-        // initialize background sprite
+        PIXI.Assets.add("player","images/sprites/player.png")
+        PIXI.Assets.add("background","images/sprites/background.png");
         
-        const texture = PIXI.Texture.from('images/sprites/background.png');
-
-        // create a new Sprite using the video texture (yes it's that easy)
-        const background = new PIXI.Sprite(texture);
-
-        // Stetch the fullscreen
-        
-        background.anchor.set(0.5);
-        background.x = app.screen.width / 2;
-        background.y = app.screen.height / 2;
-        background.width = app.screen.width;
-        background.height = app.screen.height;
-        app.stage.addChild(background);
-
-        //Player
-
-        player = PIXI.Sprite.from('player2.png');
-        player.anchor.set(0.5);
-        player.x = app.screen.width / 2;
-        player.y = app.screen.height - 50;
-        
-        player.scale.x = 0.1;
-        player.scale.y = 0.1;
-        
-        app.stage.addChild(player);
+        const texturePromise = PIXI.Assets.load(['player','background']);
+        texturePromise.then(doneLoading);
 
         window.addEventListener("keydown", keysDown);
         window.addEventListener("keyup", keysUp);
+       
+      }
 
+      function doneLoading(textures){
+        createPlayer(textures);
         app.ticker.add(gameLoop);
 
-        /*let elapsed = 0.0;
-        app.ticker.add((delta) => {
-          console.info("delta = " + delta);
-          elapsed += delta;
-          console.info("elapsed = " + elapsed);
-          sprite.x = 200.0 + Math.cos(elapsed/50.0) * 100.0;
-        });*/ 
+      }
+
+      function createPlayer(textures){
+        player = new Player
+        (
+          app.view.width/2,
+          app.view.height - 50,
+          textures.player,
+          "player",
+          10,
+          5,
+          0.1,
+          0.1
+        );
+
+        //console.log(player);
+        app.stage.addChild(player)
       }
 
       function keysDown(e) {
@@ -64,10 +58,10 @@
         keys[e.keyCode] = false;
       }
 
-      function gameLoop() {
+      function gameLoop(delta) {
         //console.info(JSON.stringify(keys));
         if (keys["65"]){
-          player.x -= 5;
+          player.moveLeft()
         }
 
         if (keys["68"]){
