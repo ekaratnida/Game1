@@ -16,6 +16,10 @@ class Player extends PIXI.Sprite {
     }
 
     moveLeft() {
-      this.x = this.x - this.speed;
+      this.x = this.x - this.speed * 1/app.ticker.FPS;
     }
+
+    moveRight() {
+        this.x = this.x + this.speed * 1/app.ticker.FPS;
+      }
   }

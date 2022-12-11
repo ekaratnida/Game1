@@ -9,24 +9,11 @@
   <body>
     <script>
 
-      /*
-      var settings = {
-        "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
-        "method": "GET",
-        "timeout": 0,
-      };
-      var price;
-
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        price = response;
-      });
-      */
-
       let app;
       let player;
       let fruit;
       let keys = {}
+      var fruits = []
 
       window.onload = function() {
         // Create the application helper and add its render target to the page
@@ -47,7 +34,7 @@
 
       function doneLoading(textures){
         createPlayer(textures);
-        createFruit(textures,"bad");
+        createFruit(textures);
         app.ticker.add(gameLoop);
 
       }
@@ -60,7 +47,7 @@
           textures.player,
           "player",
           10,
-          5,
+          150,
           0.1,
           0.1
         );
@@ -69,28 +56,30 @@
         app.stage.addChild(player)
       }
 
-      function createFruit(textures,type){
+      function createFruit(textures){
 
-        let rect;
-        if (type=="good"){
-          rect = new PIXI.Rectangle(0,0,32,32);
-        }else{
-          rect = new PIXI.Rectangle(0,32,32,32);
+        for(let i=0; i<10; i++){
+          var rect;
+          var arr = ["good","bad"]; 
+          var type = arr[Math.floor(Math.random() * arr.length)];
+          if (type=="good"){
+            rect = new PIXI.Rectangle(0,0,32,32);
+          }else{
+            rect = new PIXI.Rectangle(0,32,32,32);
+          }
+
+          fruit = new Fruit
+          (
+            Math.random() * app.view.width,
+            10,
+            new PIXI.Texture(textures.fruit,rect), "fruit_"+i, 
+            Math.random() * 150 + 50
+          );
+
+          //console.log(player);
+          app.stage.addChild(fruit)
+          fruits.push(fruit);
         }
-
-        fruit = new Fruit
-        (
-          app.view.width/2,
-          100,
-          new PIXI.Texture(textures.fruit,rect),
-          "fruit1",
-          1,
-          1,
-          1
-        );
-
-        //console.log(player);
-        app.stage.addChild(fruit)
       }
 
       function keysDown(e) {
@@ -102,22 +91,18 @@
       }
 
       function gameLoop(delta) {
-        //console.info(JSON.stringify(keys));
 
-        /*$.ajax(settings).done(function (response) {
-            console.log(response);
-            //price = response;
-        });*/
-
-        fruit.moveDown();
+        fruits.forEach(function(fruit){
+          fruit.moveDown();
+        });
 
         if (keys["65"]){
-          player.moveLeft()
+          player.moveLeft();
          
         }
 
         if (keys["68"]){
-          player.x += 5;
+          player.moveRight();
         }
       }
 

@@ -1,6 +1,6 @@
 class Fruit extends PIXI.Sprite {
 
-    constructor(px,py,texture,name,speed,sx,sy){
+    constructor(px,py,texture,name,speed,sx=1,sy=1){
       super(texture);
       this.anchor.set(0.5);
       this.name = name;
@@ -16,6 +16,6 @@ class Fruit extends PIXI.Sprite {
     }
 
     moveDown() {
-      this.y += this.speed;
+      this.y += this.speed * 1/app.ticker.FPS;
     }
   }
