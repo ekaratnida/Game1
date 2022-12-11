@@ -4,6 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://pixijs.download/release/pixi.min.js"></script>
     <script src="Player.js"></script>
+    <script src="Fruit.js"></script>
   </head>
   <body>
     <script>
@@ -24,6 +25,7 @@
 
       let app;
       let player;
+      let fruit;
       let keys = {}
 
       window.onload = function() {
@@ -31,19 +33,21 @@
         app = new PIXI.Application({ width: 800, height: 400, background: '#1099bb' });
         document.body.appendChild(app.view);
         
+        //Load assets
+        PIXI.Assets.add("fruit","images/sprites/Fruit.png")
         PIXI.Assets.add("player","images/sprites/player.png")
         PIXI.Assets.add("background","images/sprites/background.png");
         
-        const texturePromise = PIXI.Assets.load(['player','background']);
+        const texturePromise = PIXI.Assets.load(['player','background','fruit']);
         texturePromise.then(doneLoading);
-
+        
         window.addEventListener("keydown", keysDown);
         window.addEventListener("keyup", keysUp);
-       
       }
 
       function doneLoading(textures){
         createPlayer(textures);
+        createFruit(textures,"bad");
         app.ticker.add(gameLoop);
 
       }
@@ -65,6 +69,30 @@
         app.stage.addChild(player)
       }
 
+      function createFruit(textures,type){
+
+        let rect;
+        if (type=="good"){
+          rect = new PIXI.Rectangle(0,0,32,32);
+        }else{
+          rect = new PIXI.Rectangle(0,32,32,32);
+        }
+
+        fruit = new Fruit
+        (
+          app.view.width/2,
+          100,
+          new PIXI.Texture(textures.fruit,rect),
+          "fruit1",
+          1,
+          1,
+          1
+        );
+
+        //console.log(player);
+        app.stage.addChild(fruit)
+      }
+
       function keysDown(e) {
           keys[e.keyCode] = true;
       }
@@ -80,6 +108,8 @@
             console.log(response);
             //price = response;
         });*/
+
+        fruit.moveDown();
 
         if (keys["65"]){
           player.moveLeft()
