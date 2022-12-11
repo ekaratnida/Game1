@@ -90,11 +90,37 @@
         keys[e.keyCode] = false;
       }
 
+      function rectsIntersect(a,b) {
+        let aBox = a.getBounds();
+        let bBox = b.getBounds();
+
+        return aBox.x + aBox.width > bBox.x &&
+               aBox.x < bBox.x + bBox.width &&
+               aBox.y + aBox.height > bBox.y &&
+               aBox.y < bBox.y + bBox.height;
+      }
+
       function gameLoop(delta) {
 
-        fruits.forEach(function(fruit){
-          fruit.moveDown();
-        });
+        for (let index = 0; index < fruits.length; index++) {
+
+          if (rectsIntersect(player,fruits[index])) {
+      
+            // step 1
+            fruits[index].destroy() 
+              
+            // step 2
+            fruits.splice(index, 1)
+          
+            index-- // compensate array length mutation
+            continue    
+          }
+
+          fruits[index].moveDown();
+
+        }
+
+        
 
         if (keys["65"]){
           player.moveLeft();

@@ -17,5 +17,9 @@ class Fruit extends PIXI.Sprite {
 
     moveDown() {
       this.y += this.speed * 1/app.ticker.FPS;
+
+      if (this.y > app.screen.height){
+        this.y = 0;
+      }
     }
   }
