@@ -15,55 +15,57 @@ namespace Game1.Entity
     public class Fruit : GameObject
     {
 
-        //Texture2D playerTexture;
-        Vector2 speed;
         FruitType type;
 
-        public Fruit(Vector2 pos, Vector2 speed, FruitType type)
+        public Fruit(String n, Vector2 pos, Vector2 speed, FruitType type)
         {
+            name = n;
             position = pos;
-            this.speed = speed;
+            velocity = speed;
             this.type = type;
+        }
+        public override void loadContent(ContentManager cmngr)
+        {
+            //throw new NotImplementedException();
+
+            objTexture = cmngr.Load<Texture2D>("Fruit");
+            width = objTexture.Width;
+            height = objTexture.Height / 2;
         }
 
         public override void Draw(SpriteBatch _spriteBatch)
         {
             //throw new NotImplementedException();
 
-            Rectangle? rect = null;
+            Rectangle? srcRect = null;
             if (this.type == FruitType.Apple)//Good apple
             {
-                rect = new Rectangle(0, 0, objTexture.Width, objTexture.Height/2);
+                srcRect = new Rectangle(0, 0, objTexture.Width, objTexture.Height/2);
             }
             else
             {
-                rect = new Rectangle(0, objTexture.Height/2, objTexture.Width, objTexture.Height/2);
+                srcRect = new Rectangle(0, objTexture.Height/2, objTexture.Width, objTexture.Height/2);
             }
+
+            destRect = new Rectangle(   
+                  (int)position.X,
+                  (int)position.Y,
+                  objTexture.Width,
+                  objTexture.Height / 2);
 
             _spriteBatch.Draw(
               objTexture,
-              new Rectangle(
-                  (int)position.X,
-                  (int)position.Y,
-                  objTexture.Width, 
-                  objTexture.Height/2),
-              rect,
+              destRect,
+              srcRect, //sourceRect
               Color.White
             );
-        }
-
-        public override void loadContent(ContentManager cmngr)
-        {
-            //throw new NotImplementedException();
-
-            objTexture = cmngr.Load<Texture2D>("Fruit");
         }
 
         public override void Update(GameTime gameTime)
         {
             //throw new NotImplementedException();
             float totalSecond = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            position.Y += this.speed.Y * totalSecond;
+            position.Y += this.velocity.Y * totalSecond;
             
             if (position.Y > FruitTaker.screenHeight)
             {

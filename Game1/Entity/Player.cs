@@ -14,19 +14,21 @@ namespace Game1.Entity
         CollisionComponent collision;
 
         //Texture2D playerTexture;
-        Vector2 speed;
-
-        public Player(Vector2 pos, Vector2 speed)
+        
+        public Player(String n, Vector2 pos, Vector2 vel)
         {
+            name = n;
             position = pos;
-            this.speed = speed;
-            
-            
+            velocity = vel;
+          
+
         }
 
         public override void loadContent(ContentManager cmngr)
         {
             objTexture = cmngr.Load<Texture2D>("player1");
+            width = objTexture.Width;
+            height = objTexture.Height;
         }
 
         public override void Update(GameTime gameTime)
@@ -49,32 +51,34 @@ namespace Game1.Entity
                     case 'A':
                     case 'l': //Left arrow
                     case 'L':
-                        position.X -= this.speed.X * totalSecond; //This will move X pixels in one second.
+                        position.X -= this.velocity.X * totalSecond; //This will move X pixels in one second.
                         //Debug.WriteLine(position.X);
                         break;
                     case 'd':
                     case 'D':
                     case 'r': //Left arrow
                     case 'R':
-                        position.X += this.speed.X * totalSecond;
+                        position.X += this.velocity.X * totalSecond;
                         break;
                     default:
                         break;
                 }
-
             }
+
+            
         }
 
         public override void Draw(SpriteBatch _spriteBatch)
         {
+            destRect = new Rectangle(
+                    (int)position.X,
+                    (int)position.Y,
+                    objTexture.Width, objTexture.Height);
 
             _spriteBatch.Draw(
                 objTexture,
-                new Rectangle(
-                    (int)position.X - objTexture.Width / 8 / 2,
-                    (int)position.Y + 200,
-                    objTexture.Width / 8, objTexture.Height / 8),
-                    Color.White
+                destRect,
+                Color.White
               );
         }
 

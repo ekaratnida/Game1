@@ -30,15 +30,17 @@ namespace Game1
             Content.RootDirectory = "Content";
 
             player = new Player(
-                    new Vector2(screenWidth/2, screenHeight/2),
+                    "Arthur",
+                    new Vector2(screenWidth/2, screenHeight-100),
                     new Vector2(200,0)
                 );
 
-            int numFruits = 30;
+            int numFruits = 10;
             FruitType[] fruitTypes = { FruitType.Apple, FruitType.Toxic};
             for(int i=0; i < numFruits; ++i)
             {
                 Fruit fruit = new Fruit(
+                  "fr_"+i,
                   new Vector2(new Random().Next(screenWidth), 0),
                   new Vector2(0, new Random().Next(100)+100),
                   fruitTypes[new Random().Next(0,fruitTypes.Length)]
@@ -77,7 +79,22 @@ namespace Game1
             player.Update(gameTime);
 
             for (int i = 0; i < fruits.Count - 1; ++i)
+            {
                 fruits[i].Update(gameTime);
+
+                Rectangle playerRect = new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height);
+                Rectangle fruitRect = new Rectangle((int)fruits[i].position.X, (int)fruits[i].position.Y, fruits[i].width, fruits[i].height);
+
+                if (playerRect.Intersects(fruitRect))
+                {
+                    fruits[i].velocity = Vector2.Zero;
+                }
+                /*if (player.objTexture.Bounds.Intersects(fruits[i].objTexture.Bounds))
+                {
+                    Debug.WriteLine(player.name + " hits a fruit name = " + fruits[i].name);
+                }*/
+            }
+
 
             base.Update(gameTime);
         }
