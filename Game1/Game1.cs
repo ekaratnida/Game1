@@ -11,14 +11,11 @@ namespace Game1
     public class Game1 : Game
     {
 
-        Texture2D ballTexture;
+       
         Texture2D tileTexture;
-        Texture2D player1Texture;
-        Texture2D player2Texture;
+        Texture2D playerTexture;
         SpriteFont font1;
-        Vector2 ballPosition;
-        float ballSpeed;
-
+       
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -42,15 +39,7 @@ namespace Game1
 
             _graphics.PreferredBackBufferWidth = 800;
             _graphics.PreferredBackBufferHeight = 400;
-
-            // TODO: Add your initialization logic here
-            ballPosition = new Vector2(
-                _graphics.PreferredBackBufferWidth/2,
-                _graphics.PreferredBackBufferHeight/2
-                );
-            
-            ballSpeed = 200f;
-
+           
             SimpleTexture = new Texture2D(_graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             SimpleTexture.SetData<Int32>(pixel, 0, SimpleTexture.Width * SimpleTexture.Height);
 

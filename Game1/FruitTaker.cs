@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
@@ -17,24 +18,35 @@ namespace Game1
         private SpriteBatch _spriteBatch;
 
         Player player;
-        Fruit fruit;
+        //Fruit fruit;
+        List<Fruit> fruits = new List<Fruit>(10);
 
-        int screenWidth = 1024;
-        int screenHeight = 768;
+        public static readonly int screenWidth = 1024;
+        public static readonly int screenHeight = 768;
 
         public FruitTaker()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
             player = new Player(
                     new Vector2(screenWidth/2, screenHeight/2),
                     new Vector2(200,0)
                 );
-            fruit = new Fruit(
-                    new Vector2(0, screenHeight / 3),
-                    new Vector2(0, 100),
-                    FruitType.Apple
+
+            int numFruits = 30;
+            FruitType[] fruitTypes = { FruitType.Apple, FruitType.Toxic};
+            for(int i=0; i < numFruits; ++i)
+            {
+                Fruit fruit = new Fruit(
+                  new Vector2(new Random().Next(screenWidth), 0),
+                  new Vector2(0, new Random().Next(100)+100),
+                  fruitTypes[new Random().Next(0,fruitTypes.Length)]
                 );
+                Debug.WriteLine(fruit.position);
+                fruits.Add( fruit );
+            }
+          
         }
 
         protected override void Initialize()
@@ -50,11 +62,10 @@ namespace Game1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             font1 = Content.Load<SpriteFont>("tileFont");
-
             player.loadContent(Content);
-            fruit.loadContent(Content);
+            for(int i=0; i < fruits.Count-1; ++i)
+                fruits[i].loadContent(Content);
 
         }
 
@@ -64,7 +75,9 @@ namespace Game1
                 Exit();
 
             player.Update(gameTime);
-            fruit.Update(gameTime);
+
+            for (int i = 0; i < fruits.Count - 1; ++i)
+                fruits[i].Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -81,7 +94,8 @@ namespace Game1
 
             player.Draw(_spriteBatch);
 
-            fruit.Draw(_spriteBatch);
+            for (int i = 0; i < fruits.Count - 1; ++i)
+                fruits[i].Draw(_spriteBatch);
 
             _spriteBatch.End();
 

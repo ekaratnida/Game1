@@ -1,11 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.Screens;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game1.Entity
 {
@@ -67,6 +64,11 @@ namespace Game1.Entity
             //throw new NotImplementedException();
             float totalSecond = (float)gameTime.ElapsedGameTime.TotalSeconds;
             position.Y += this.speed.Y * totalSecond;
+            
+            if (position.Y > FruitTaker.screenHeight)
+            {
+                position.Y = 0;
+            }
         }
     }
 }

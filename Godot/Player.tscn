@@ -1,0 +1,124 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://art/playerGrey_walk1.png" type="Texture" id=1]
+[ext_resource path="res://art/playerGrey_up1.png" type="Texture" id=2]
+[ext_resource path="res://art/playerGrey_walk2.png" type="Texture" id=3]
+[ext_resource path="res://art/playerGrey_up2.png" type="Texture" id=4]
+
+[sub_resource type="CSharpScript" id=3]
+script/source = "using Godot;
+using System;
+
+public class Player : Area2D
+{
+	[Signal]
+	public delegate void Hit();
+
+	[Export]
+	public int Speed = 400; // How fast the player will move (pixels/sec).
+
+	public Vector2 ScreenSize; // Size of the game window.
+	
+	// Declare member variables here. Examples:
+	// private int a = 2;
+	// private string b = \"text\";
+	
+	public void Start(Vector2 pos)
+	{
+		Position = pos;
+		Show();
+		GetNode<CollisionShape2D>(\"CollisionShape2D\").Disabled = false;
+	}
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		 ScreenSize = GetViewportRect().Size;
+		 Hide();
+	}
+
+	public override void _Process(float delta)
+	{
+		var velocity = Vector2.Zero; // The player's movement vector.
+
+		if (Input.IsActionPressed(\"move_right\"))
+		{
+			velocity.x += 1;
+		}
+
+		if (Input.IsActionPressed(\"move_left\"))
+		{
+			velocity.x -= 1;
+		}
+
+		if (Input.IsActionPressed(\"move_down\"))
+		{
+			velocity.y += 1;
+		}
+
+		if (Input.IsActionPressed(\"move_up\"))
+		{
+			velocity.y -= 1;
+		}
+
+		var animatedSprite = GetNode<AnimatedSprite>(\"AnimatedSprite\");
+
+		if (velocity.Length() > 0)
+		{
+			velocity = velocity.Normalized() * Speed;
+			animatedSprite.Play();
+		}
+		else
+		{
+			animatedSprite.Stop();
+		}
+		
+		Position += velocity * delta;
+		Position = new Vector2(
+			x: Mathf.Clamp(Position.x, 0, ScreenSize.x),
+			y: Mathf.Clamp(Position.y, 0, ScreenSize.y)
+		);
+	}
+	
+	public void OnPlayerBodyEntered(PhysicsBody2D body)
+	{
+		Hide(); // Player disappears after being hit.
+		EmitSignal(nameof(Hit));
+		// Must be deferred as we can't change physics properties on a physics callback.
+		GetNode<CollisionShape2D>(\"CollisionShape2D\").SetDeferred(\"disabled\", true);
+	}
+}
+
+
+
+"
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 27.0
+height = 14.0
+
+[node name="Player" type="Area2D"]
+script = SubResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 1 )
+animation = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
