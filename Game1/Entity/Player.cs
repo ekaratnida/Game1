@@ -14,14 +14,16 @@ namespace Game1.Entity
         CollisionComponent collision;
 
         //Texture2D playerTexture;
-        
-        public Player(String n, Vector2 pos, Vector2 vel)
+        private int hp = 0;
+
+        public int Hp { get => hp; set => hp = value; }
+
+        public Player(String n, Vector2 pos, Vector2 vel, int hp)
         {
-            name = n;
+            Name = n;
             position = pos;
             velocity = vel;
-          
-
+            Hp = hp;
         }
 
         public override void loadContent(ContentManager cmngr)

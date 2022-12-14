@@ -12,6 +12,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="FruitTaker.cs" />
     <Compile Remove="Game1.cs" />
   </ItemGroup>
   <ItemGroup>

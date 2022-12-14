@@ -8,13 +8,26 @@ namespace Game1.Entity
 {
     public abstract class GameObject
     {
+
+        public enum CollisionStatus
+        {
+           Enter,
+           Stay,
+           Exit,
+           None
+        }
+
         public Texture2D objTexture;
         public Vector2 position;
         public int width;
         public int height; 
         public Vector2 velocity;
-        public string name;
+        private string name;
         public Rectangle destRect;
+        private CollisionStatus collisionStatus;
+
+        public string Name { get => name; set => name = value; }
+        public CollisionStatus CollisionStatus1 { get => collisionStatus; set => collisionStatus = value; }
 
         public abstract void loadContent(ContentManager cmngr);
 

@@ -11,7 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace Game1
 {
-    public class FruitTaker : Game
+    public class MainGame : Game
     {
         SpriteFont font1;
         private GraphicsDeviceManager _graphics;
@@ -24,7 +24,7 @@ namespace Game1
         public static readonly int screenWidth = 1024;
         public static readonly int screenHeight = 768;
 
-        public FruitTaker()
+        public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -46,7 +46,7 @@ namespace Game1
                   new Vector2(0, new Random().Next(100)+100),
                   fruitTypes[new Random().Next(0,fruitTypes.Length)]
                 );
-                Debug.WriteLine(fruit.position);
+                //Debug.WriteLine(fruit.position);
                 fruits.Add( fruit );
             }
           
@@ -88,6 +88,14 @@ namespace Game1
 
                 if (playerRect.Intersects(fruitRect))
                 {
+                    if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.None)
+                        fruits[i].CollisionStatus1 = GameObject.CollisionStatus.Enter;
+                    else if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.Enter)
+                        fruits[i].CollisionStatus1 = GameObject.CollisionStatus.Stay;
+                    //else if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.Stay)
+                    //    fruits[i].CollisionStatus1 = GameObject.CollisionStatus.Enter;
+
+
                     if (fruits[i].type == FruitType.Apple) {
                         //fruits[i].velocity = Vector2.Zero;
                         fruits[i] = null;
@@ -96,9 +104,18 @@ namespace Game1
                     }
                     else
                     {
-                        if (Scores.Score > 0)
-                            Scores.Score--;
+                        if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.Enter)
+                        {
+                            if (player.Hp > 0)
+                                player.Hp--;
+                        }
+                        //Debug.WriteLine(fruits[i].Name);
+                       
                     }
+                }
+                else
+                {
+                    fruits[i].CollisionStatus1 = GameObject.CollisionStatus.None;
                 }
             }
 
@@ -114,11 +131,13 @@ namespace Game1
             _spriteBatch.Begin();
 
             //if (System.Diagnostics.Debugger.IsAttached)
+            //Draw score
             _spriteBatch.DrawString(font1, "Score = "+Scores.Score, new Vector2(10, 10), 
-                Color.DarkRed,0,Vector2.Zero,1.5f,SpriteEffects.None,0);
+                Color.Blue,0,Vector2.Zero,1.5f,SpriteEffects.None,0);
 
-            _spriteBatch.DrawString(font1, "Score = " + Scores.Score, new Vector2(10, 10),
-               Color.DarkRed, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 0);
+            //Draw life
+            _spriteBatch.DrawString(font1, "Life = " + player.Hp, new Vector2(10, 50),
+               Color.Red, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 0);
 
             player.Draw(_spriteBatch);
 

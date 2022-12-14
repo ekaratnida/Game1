@@ -19,7 +19,7 @@ namespace Game1.Entity
 
         public Fruit(String n, Vector2 pos, Vector2 speed, FruitType type)
         {
-            name = n;
+            Name = n;
             position = pos;
             velocity = speed;
             this.type = type;
@@ -68,7 +68,7 @@ namespace Game1.Entity
             float totalSecond = (float)gameTime.ElapsedGameTime.TotalSeconds;
             position.Y += this.velocity.Y * totalSecond;
             
-            if (position.Y > FruitTaker.screenHeight)
+            if (position.Y > MainGame.screenHeight)
             {
                 position.Y = 0;
             }
