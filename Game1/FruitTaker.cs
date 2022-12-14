@@ -87,12 +87,18 @@ namespace Game1
 
                 if (playerRect.Intersects(fruitRect))
                 {
-                    fruits[i].velocity = Vector2.Zero;
+                    if (fruits[i].type == FruitType.Apple) {
+                        //fruits[i].velocity = Vector2.Zero;
+                        fruits[i] = null;
+                        fruits.RemoveAt(i);
+                        Scores.Score += 1;
+                    }
+                    else
+                    {
+                        if (Scores.Score > 0)
+                            Scores.Score--;
+                    }
                 }
-                /*if (player.objTexture.Bounds.Intersects(fruits[i].objTexture.Bounds))
-                {
-                    Debug.WriteLine(player.name + " hits a fruit name = " + fruits[i].name);
-                }*/
             }
 
 
@@ -106,8 +112,9 @@ namespace Game1
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-            if (System.Diagnostics.Debugger.IsAttached)
-                _spriteBatch.DrawString(font1, "Test Font", new Vector2(10, 10), Color.DarkRed);
+            //if (System.Diagnostics.Debugger.IsAttached)
+            _spriteBatch.DrawString(font1, "Score = "+Scores.Score, new Vector2(10, 10), 
+                Color.DarkRed,0,Vector2.Zero,1.5f,SpriteEffects.None,0);
 
             player.Draw(_spriteBatch);
 

@@ -15,7 +15,7 @@ namespace Game1.Entity
     public class Fruit : GameObject
     {
 
-        FruitType type;
+        public FruitType type;
 
         public Fruit(String n, Vector2 pos, Vector2 speed, FruitType type)
         {
@@ -24,6 +24,7 @@ namespace Game1.Entity
             velocity = speed;
             this.type = type;
         }
+
         public override void loadContent(ContentManager cmngr)
         {
             //throw new NotImplementedException();
