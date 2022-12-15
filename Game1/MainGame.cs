@@ -1,6 +1,7 @@
 ﻿using Game1.Control;
 using Game1.Entity;
 using Game1.GUI;
+using Game1.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,6 +14,19 @@ namespace Game1
 {
     public class MainGame : Game
     {
+        public enum GameState
+        {
+            MainMenu,
+            Playing,
+            Pause,
+            GameOver,
+            EndGame
+        }
+
+        GameState currentState;
+
+        MainScene mainScene;
+
         SpriteFont font1;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -28,6 +42,10 @@ namespace Game1
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            currentState = GameState.MainMenu;
+
+            mainScene = new MainScene("MainMenu");
 
             player = new Player(
                     "Arthur",
@@ -65,8 +83,13 @@ namespace Game1
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            mainScene.loadContent(Content);
+
             font1 = Content.Load<SpriteFont>("tileFont");
+            
             player.loadContent(Content);
+            
             for(int i=0; i < fruits.Count-1; ++i)
                 fruits[i].loadContent(Content);
 
@@ -107,7 +130,13 @@ namespace Game1
                         if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.Enter)
                         {
                             if (player.Hp > 0)
+                            {
                                 player.Hp--;
+                            }
+                            else
+                            {
+                                //player die
+                            }
                         }
                         //Debug.WriteLine(fruits[i].Name);
                        
@@ -130,19 +159,28 @@ namespace Game1
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-            //if (System.Diagnostics.Debugger.IsAttached)
-            //Draw score
-            _spriteBatch.DrawString(font1, "Score = "+Scores.Score, new Vector2(10, 10), 
-                Color.Blue,0,Vector2.Zero,1.5f,SpriteEffects.None,0);
+            if (currentState == GameState.MainMenu)
+            {
+                mainScene.Draw(_spriteBatch);
+            }
+            else if (currentState == GameState.Playing)
+            {
 
-            //Draw life
-            _spriteBatch.DrawString(font1, "Life = " + player.Hp, new Vector2(10, 50),
-               Color.Red, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 0);
+                //if (System.Diagnostics.Debugger.IsAttached)
+                //Draw score
+                _spriteBatch.DrawString(font1, "Score = " + Scores.Score, new Vector2(10, 10),
+                    Color.Blue, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 0);
 
-            player.Draw(_spriteBatch);
+                //Draw life
+                _spriteBatch.DrawString(font1, "Life = " + player.Hp, new Vector2(10, 50),
+                   Color.Red, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 0);
 
-            for (int i = 0; i < fruits.Count - 1; ++i)
-                fruits[i].Draw(_spriteBatch);
+                player.Draw(_spriteBatch);
+
+                for (int i = 0; i < fruits.Count - 1; ++i)
+                    fruits[i].Draw(_spriteBatch);
+            }
+
 
             _spriteBatch.End();
 
