@@ -186,8 +186,16 @@ namespace Game1.GUI
             {
                 case EASY_BUTTON_INDEX:
                     background_color = Color.Green;
-                    MainGame.currentState = Game1.GameState.Playing;
+                    if (MainGame.currentState == GameState.MainMenu)
+                    {
+                        MainGame.currentState = GameState.Playing;
+
+                    }else if (MainGame.currentState == GameState.GameOver)
+                    {
+                        MainGame.currentState = GameState.MainMenu;
+                    }
                     break;
+
                 case MEDIUM_BUTTON_INDEX:
                     background_color = Color.Yellow;
                     break;

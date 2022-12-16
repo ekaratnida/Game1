@@ -19,19 +19,21 @@ namespace Game1
 
     public class MainGame : Game
     {
-       
+       //Game state
         public static GameState currentState;
 
+        //Scene
         MainScene mainScene;
+        GameOverScene gameOverScene;
 
+        //Game entities
+        Player player;
+        List<Fruit> fruits = new List<Fruit>(10);
+
+        //Game window elements
         SpriteFont font1;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
-        Player player;
-        //Fruit fruit;
-        List<Fruit> fruits = new List<Fruit>(10);
-
         public static readonly int screenWidth = 1024;
         public static readonly int screenHeight = 768;
 
@@ -42,7 +44,9 @@ namespace Game1
 
             MainGame.currentState = GameState.MainMenu;
 
+            //Scene
             mainScene = new MainScene("MainMenu");
+            gameOverScene = new GameOverScene("GameOver");
 
             player = new Player(
                     "Arthur",
@@ -74,6 +78,7 @@ namespace Game1
             _graphics.ApplyChanges();
 
             mainScene.init(Window,this);
+            gameOverScene.init(Window, this);
           
             base.Initialize();
         }
@@ -84,6 +89,7 @@ namespace Game1
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             mainScene.loadContent(Content);
+            gameOverScene.loadContent(Content);
 
             font1 = Content.Load<SpriteFont>("tileFont");
             
@@ -99,11 +105,11 @@ namespace Game1
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (MainGame.currentState == GameState.MainMenu)
+            if (currentState == GameState.MainMenu)
             {
                 mainScene.Update(gameTime);
             }
-            else if (MainGame.currentState == GameState.Playing)
+            else if (currentState == GameState.Playing)
             {
 
                 player.Update(gameTime);
@@ -140,9 +146,11 @@ namespace Game1
                                 {
                                     player.Hp--;
                                 }
-                                else
+                                
+                                if(player.Hp == 0)
                                 {
                                     //player die
+                                    currentState = GameState.GameOver;
                                 }
                             }
                             //Debug.WriteLine(fruits[i].Name);
@@ -155,7 +163,11 @@ namespace Game1
                     }
                 }
 
+            }else if(currentState == GameState.GameOver)
+            {
+                gameOverScene.Update(gameTime);
             }
+
             base.Update(gameTime);
         }
 
@@ -186,6 +198,11 @@ namespace Game1
 
                 for (int i = 0; i < fruits.Count - 1; ++i)
                     fruits[i].Draw(_spriteBatch);
+
+            }
+            else if(currentState == GameState.GameOver)
+            {
+                gameOverScene.Draw(_spriteBatch);
             }
 
 

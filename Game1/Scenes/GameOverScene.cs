@@ -6,12 +6,12 @@ using System;
 
 namespace Game1.Scenes
 {
-    public class MainScene : BaseScene
+    public class GameOverScene : BaseScene
     {
         Button button;
        
-        public MainScene(String name) {
-            
+        public GameOverScene(String name)
+        {
             Name = name;
             button = new Button();
         }
@@ -29,19 +29,19 @@ namespace Game1.Scenes
                 Color.White
            );
 
-            button.draw(_spriteBatch );
+           button.draw(_spriteBatch);
 
         }
 
         public override void loadContent(ContentManager cmngr)
         {
-            objTexture = cmngr.Load<Texture2D>("MainBackground");
+            objTexture = cmngr.Load<Texture2D>("GameOverBG");
             button.loadContent(cmngr);
         }
 
         public override void Update(GameTime gameTime)
         {
-           button.update(gameTime);
+            button.update(gameTime);
         }
     }
 }
