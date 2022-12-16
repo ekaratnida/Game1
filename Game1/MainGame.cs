@@ -1,29 +1,26 @@
-﻿using Game1.Control;
-using Game1.Entity;
-using Game1.GUI;
+﻿using Game1.Entity;
 using Game1.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace Game1
 {
+    public enum GameState
+    {
+        MainMenu,
+        Playing,
+        Pause,
+        GameOver,
+        EndGame
+    }
+
     public class MainGame : Game
     {
-        public enum GameState
-        {
-            MainMenu,
-            Playing,
-            Pause,
-            GameOver,
-            EndGame
-        }
-
-        GameState currentState;
+       
+        public static GameState currentState;
 
         MainScene mainScene;
 
@@ -43,7 +40,7 @@ namespace Game1
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            currentState = GameState.MainMenu;
+            MainGame.currentState = GameState.MainMenu;
 
             mainScene = new MainScene("MainMenu");
 
@@ -75,6 +72,8 @@ namespace Game1
             _graphics.PreferredBackBufferWidth = screenWidth;
             _graphics.PreferredBackBufferHeight = screenHeight;
             _graphics.ApplyChanges();
+
+            mainScene.init(Window,this);
           
             base.Initialize();
         }
@@ -100,55 +99,63 @@ namespace Game1
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.Update(gameTime);
-
-            for (int i = 0; i < fruits.Count - 1; ++i)
+            if (MainGame.currentState == GameState.MainMenu)
             {
-                fruits[i].Update(gameTime);
+                mainScene.Update(gameTime);
+            }
+            else if (MainGame.currentState == GameState.Playing)
+            {
 
-                Rectangle playerRect = new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height);
-                Rectangle fruitRect = new Rectangle((int)fruits[i].position.X, (int)fruits[i].position.Y, fruits[i].width, fruits[i].height);
+                player.Update(gameTime);
 
-                if (playerRect.Intersects(fruitRect))
+                for (int i = 0; i < fruits.Count - 1; ++i)
                 {
-                    if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.None)
-                        fruits[i].CollisionStatus1 = GameObject.CollisionStatus.Enter;
-                    else if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.Enter)
-                        fruits[i].CollisionStatus1 = GameObject.CollisionStatus.Stay;
-                    //else if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.Stay)
-                    //    fruits[i].CollisionStatus1 = GameObject.CollisionStatus.Enter;
+                    fruits[i].Update(gameTime);
+
+                    Rectangle playerRect = new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height);
+                    Rectangle fruitRect = new Rectangle((int)fruits[i].position.X, (int)fruits[i].position.Y, fruits[i].width, fruits[i].height);
+
+                    if (playerRect.Intersects(fruitRect))
+                    {
+                        if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.None)
+                            fruits[i].CollisionStatus1 = GameObject.CollisionStatus.Enter;
+                        else if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.Enter)
+                            fruits[i].CollisionStatus1 = GameObject.CollisionStatus.Stay;
+                        //else if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.Stay)
+                        //    fruits[i].CollisionStatus1 = GameObject.CollisionStatus.Enter;
 
 
-                    if (fruits[i].type == FruitType.Apple) {
-                        //fruits[i].velocity = Vector2.Zero;
-                        fruits[i] = null;
-                        fruits.RemoveAt(i);
-                        Scores.Score += 1;
+                        if (fruits[i].type == FruitType.Apple)
+                        {
+                            //fruits[i].velocity = Vector2.Zero;
+                            fruits[i] = null;
+                            fruits.RemoveAt(i);
+                            Scores.Score += 1;
+                        }
+                        else
+                        {
+                            if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.Enter)
+                            {
+                                if (player.Hp > 0)
+                                {
+                                    player.Hp--;
+                                }
+                                else
+                                {
+                                    //player die
+                                }
+                            }
+                            //Debug.WriteLine(fruits[i].Name);
+
+                        }
                     }
                     else
                     {
-                        if (fruits[i].CollisionStatus1 == GameObject.CollisionStatus.Enter)
-                        {
-                            if (player.Hp > 0)
-                            {
-                                player.Hp--;
-                            }
-                            else
-                            {
-                                //player die
-                            }
-                        }
-                        //Debug.WriteLine(fruits[i].Name);
-                       
+                        fruits[i].CollisionStatus1 = GameObject.CollisionStatus.None;
                     }
                 }
-                else
-                {
-                    fruits[i].CollisionStatus1 = GameObject.CollisionStatus.None;
-                }
+
             }
-
-
             base.Update(gameTime);
         }
 

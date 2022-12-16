@@ -15,6 +15,8 @@ namespace Game1.Scenes
         
         public string Name { get => name; set => name = value; }
 
+        public abstract void init(GameWindow window, Game game);
+
         public abstract void loadContent(ContentManager cmngr);
 
         public abstract void Update(GameTime gameTime);

@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,18 +16,21 @@ namespace Game1.GUI
             JUST_RELEASED,
             DOWN
         }
+
         const int NUMBER_OF_BUTTONS = 3,
             EASY_BUTTON_INDEX = 0,
             MEDIUM_BUTTON_INDEX = 1,
             HARD_BUTTON_INDEX = 2,
             BUTTON_HEIGHT = 40,
             BUTTON_WIDTH = 88;
+
         Color background_color;
         Color[] button_color = new Color[NUMBER_OF_BUTTONS];
         Rectangle[] button_rectangle = new Rectangle[NUMBER_OF_BUTTONS];
         BState[] button_state = new BState[NUMBER_OF_BUTTONS];
         Texture2D[] button_texture = new Texture2D[NUMBER_OF_BUTTONS];
         double[] button_timer = new double[NUMBER_OF_BUTTONS];
+
         //mouse pressed and mouse just pressed
         bool mpressed, prev_mpressed = false;
         //mouse location in window
@@ -184,6 +186,7 @@ namespace Game1.GUI
             {
                 case EASY_BUTTON_INDEX:
                     background_color = Color.Green;
+                    MainGame.currentState = Game1.GameState.Playing;
                     break;
                 case MEDIUM_BUTTON_INDEX:
                     background_color = Color.Yellow;
