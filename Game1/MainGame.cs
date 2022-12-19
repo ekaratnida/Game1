@@ -14,7 +14,7 @@ namespace Game1
         Playing,
         Pause,
         GameOver,
-        EndGame
+        ClearGame
     }
 
     public class MainGame : Game
@@ -25,6 +25,7 @@ namespace Game1
         //Scene
         MainScene mainScene;
         GameOverScene gameOverScene;
+        ClearGameScene clearGameScene;
 
         //Game entities
         Player player;
@@ -45,8 +46,9 @@ namespace Game1
             MainGame.currentState = GameState.MainMenu;
 
             //Scene
-            mainScene = new MainScene("MainMenu");
-            gameOverScene = new GameOverScene("GameOver");
+            mainScene = new MainScene("MainMenuScene");
+            gameOverScene = new GameOverScene("GameOverScene");
+            clearGameScene = new ClearGameScene("ClearGameScene");
 
             player = new Player(
                     "Arthur",
@@ -56,7 +58,9 @@ namespace Game1
                 );
 
             int numFruits = 10;
+            
             FruitType[] fruitTypes = { FruitType.Apple, FruitType.Toxic};
+            
             for(int i=0; i < numFruits; ++i)
             {
                 Fruit fruit = new Fruit(
@@ -65,10 +69,10 @@ namespace Game1
                   new Vector2(0, new Random().Next(100)+100),
                   fruitTypes[new Random().Next(0,fruitTypes.Length)]
                 );
+
                 //Debug.WriteLine(fruit.position);
                 fruits.Add( fruit );
-            }
-          
+            }        
         }
 
         protected override void Initialize()
@@ -79,6 +83,7 @@ namespace Game1
 
             mainScene.init(Window,this);
             gameOverScene.init(Window, this);
+            clearGameScene.init(Window, this);
           
             base.Initialize();
         }
@@ -90,13 +95,16 @@ namespace Game1
 
             mainScene.loadContent(Content);
             gameOverScene.loadContent(Content);
+            clearGameScene.loadContent(Content);
 
             font1 = Content.Load<SpriteFont>("tileFont");
             
             player.loadContent(Content);
-            
-            for(int i=0; i < fruits.Count-1; ++i)
+
+            for (int i = 0; i < fruits.Count - 1; ++i)
+            {
                 fruits[i].loadContent(Content);
+            }
 
         }
 
@@ -137,6 +145,10 @@ namespace Game1
                             fruits[i] = null;
                             fruits.RemoveAt(i);
                             Scores.Score += 1;
+                            if ( Scores.Score >= 3)
+                            {
+                                currentState = GameState.ClearGame;
+                            }
                         }
                         else
                         {
@@ -163,9 +175,14 @@ namespace Game1
                     }
                 }
 
-            }else if(currentState == GameState.GameOver)
+            }
+            else if ( currentState == GameState.GameOver )
             {
                 gameOverScene.Update(gameTime);
+            }
+            else if ( currentState == GameState.ClearGame )
+            {
+                clearGameScene.Update(gameTime);
             }
 
             base.Update(gameTime);
@@ -200,11 +217,14 @@ namespace Game1
                     fruits[i].Draw(_spriteBatch);
 
             }
-            else if(currentState == GameState.GameOver)
+            else if ( currentState == GameState.GameOver )
             {
                 gameOverScene.Draw(_spriteBatch);
             }
-
+            else if ( currentState == GameState.ClearGame )
+            {
+                clearGameScene.Draw(_spriteBatch);
+            }
 
             _spriteBatch.End();
 

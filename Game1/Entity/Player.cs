@@ -39,12 +39,10 @@ namespace Game1.Entity
             float totalSecond = (float)gameTime.ElapsedGameTime.TotalSeconds;
             //Debug.WriteLine(totalSecond);
 
-
             KeyboardState keyboard_state = Keyboard.GetState();
             Keys[] keymap = (Keys[])keyboard_state.GetPressedKeys();
             foreach (Keys k in keymap)
             {
-
                 char key = k.ToString()[0];
                 Debug.WriteLine(key);
                 switch (key)
@@ -66,8 +64,6 @@ namespace Game1.Entity
                         break;
                 }
             }
-
-            
         }
 
         public override void Draw(SpriteBatch _spriteBatch)
@@ -83,9 +79,5 @@ namespace Game1.Entity
                 Color.White
               );
         }
-
-       
-
-      
     }
 }
