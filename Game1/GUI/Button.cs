@@ -17,10 +17,9 @@ namespace Game1.GUI
             DOWN
         }
 
-        const int NUMBER_OF_BUTTONS = 3,
+        const int NUMBER_OF_BUTTONS = 2,
             EASY_BUTTON_INDEX = 0,
             MEDIUM_BUTTON_INDEX = 1,
-            HARD_BUTTON_INDEX = 2,
             BUTTON_HEIGHT = 40,
             BUTTON_WIDTH = 88;
 
@@ -61,11 +60,10 @@ namespace Game1.GUI
         public void loadContent(ContentManager cmngr)
         {
             button_texture[EASY_BUTTON_INDEX] =
-               cmngr.Load<Texture2D>("easy");
+               cmngr.Load<Texture2D>("start");
             button_texture[MEDIUM_BUTTON_INDEX] =
-                cmngr.Load<Texture2D>("medium");
-            button_texture[HARD_BUTTON_INDEX] =
-                cmngr.Load<Texture2D>("hard");
+                cmngr.Load<Texture2D>("exit");
+            
         }
 
         public void update(GameTime gameTime)
@@ -199,9 +197,6 @@ namespace Game1.GUI
                 case MEDIUM_BUTTON_INDEX:
                     background_color = Color.Yellow;
                     break;
-                case HARD_BUTTON_INDEX:
-                    background_color = Color.Red;
-                    break;
                 default:
                     break;
             }
@@ -230,12 +225,6 @@ namespace Game1.GUI
                         take_action_on_button(MEDIUM_BUTTON_INDEX);
                         button_color[MEDIUM_BUTTON_INDEX] = Color.Orange;
                         button_timer[MEDIUM_BUTTON_INDEX] = 0.25;
-                        break;
-                    case 'h':
-                    case 'H':
-                        take_action_on_button(HARD_BUTTON_INDEX);
-                        button_color[HARD_BUTTON_INDEX] = Color.Orange;
-                        button_timer[HARD_BUTTON_INDEX] = 0.25;
                         break;
                     default:
                         break;
