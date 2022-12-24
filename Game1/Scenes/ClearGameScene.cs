@@ -13,7 +13,21 @@ namespace Game1.Scenes
         public ClearGameScene(String name)
         {
             Name = name;
-            button = new Button();
+            button = new Button(2,
+                new string[] { "main_menu", "exit" },
+                new MyDelegate[] {
+                        (Game game) => {
+                            
+                            MainGame.currentState = GameState.MainMenu;
+                            
+                        },
+                        (Game game) =>  {
+                            Console.WriteLine("Exit");
+                            game.Exit();
+                        }
+
+                    }
+                );
         }
 
         public override void init(GameWindow window, Game game)

@@ -13,7 +13,27 @@ namespace Game1.Scenes
         public GameOverScene(String name)
         {
             Name = name;
-            button = new Button();
+            button = new Button(2,
+                new string[] { "main_menu", "exit" },
+                new MyDelegate[] {
+                        (Game game) => {
+                            //background_color = Color.Green;
+                            if (MainGame.currentState == GameState.MainMenu)
+                            {
+                                MainGame.currentState = GameState.Playing;
+
+                            }else if (MainGame.currentState == GameState.GameOver)
+                            {
+                                MainGame.currentState = GameState.MainMenu;
+                            }
+                        },
+                        (Game game) =>  {
+                            Console.WriteLine("Exit");
+                            game.Exit();
+                        }
+
+                    }
+                );
         }
 
         public override void init(GameWindow window, Game game)

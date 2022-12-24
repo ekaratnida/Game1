@@ -6,6 +6,9 @@ using System;
 
 namespace Game1.GUI
 {
+
+    public delegate void MyDelegate(Game game); // declare a delegate
+
     public class Button
     {
         // Global variables
@@ -17,18 +20,19 @@ namespace Game1.GUI
             DOWN
         }
 
-        const int NUMBER_OF_BUTTONS = 2,
-            EASY_BUTTON_INDEX = 0,
-            MEDIUM_BUTTON_INDEX = 1,
+        int NUMBER_OF_BUTTONS = 2,
             BUTTON_HEIGHT = 40,
             BUTTON_WIDTH = 88;
 
         Color background_color;
-        Color[] button_color = new Color[NUMBER_OF_BUTTONS];
-        Rectangle[] button_rectangle = new Rectangle[NUMBER_OF_BUTTONS];
-        BState[] button_state = new BState[NUMBER_OF_BUTTONS];
-        Texture2D[] button_texture = new Texture2D[NUMBER_OF_BUTTONS];
-        double[] button_timer = new double[NUMBER_OF_BUTTONS];
+        Color[] button_color;
+        Rectangle[] button_rectangle;
+        BState[] button_state;
+        Texture2D[] button_texture;
+        double[] button_timer;
+        String[] bNames;
+        MyDelegate[] mDels;
+        Game mGame;
 
         //mouse pressed and mouse just pressed
         bool mpressed, prev_mpressed = false;
@@ -36,6 +40,21 @@ namespace Game1.GUI
         int mx, my;
         double frame_time;
         KeyboardState keyboard_state, last_keyboard_state;
+
+
+        public Button(int nb, String[] buttonNames, MyDelegate[] bActions)
+        {
+            NUMBER_OF_BUTTONS = nb;
+            button_color = new Color[NUMBER_OF_BUTTONS];
+            button_rectangle = new Rectangle[NUMBER_OF_BUTTONS];
+            button_state = new BState[NUMBER_OF_BUTTONS];
+            button_texture = new Texture2D[NUMBER_OF_BUTTONS];
+            button_timer = new double[NUMBER_OF_BUTTONS];
+            bNames = new string[NUMBER_OF_BUTTONS];
+            buttonNames.CopyTo(bNames, 0);
+            mDels = new MyDelegate[NUMBER_OF_BUTTONS];
+            bActions.CopyTo(mDels, 0);
+        }
 
         public void init(GameWindow Window,Game game)
         {
@@ -45,6 +64,7 @@ namespace Game1.GUI
             int y = Window.ClientBounds.Height / 2 -
                 NUMBER_OF_BUTTONS / 2 * BUTTON_HEIGHT -
                 (NUMBER_OF_BUTTONS % 2) * BUTTON_HEIGHT / 2;
+
             for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
             {
                 button_state[i] = BState.UP;
@@ -53,17 +73,22 @@ namespace Game1.GUI
                 button_rectangle[i] = new Rectangle(x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
                 y += BUTTON_HEIGHT;
             }
-            game.IsMouseVisible = true;
+
+            mGame = game;
+            mGame.IsMouseVisible = true;
+            
             background_color = Color.CornflowerBlue;
+
         }
+
 
         public void loadContent(ContentManager cmngr)
         {
-            button_texture[EASY_BUTTON_INDEX] =
-               cmngr.Load<Texture2D>("start");
-            button_texture[MEDIUM_BUTTON_INDEX] =
-                cmngr.Load<Texture2D>("exit");
-            
+            for (int i = 0; i < NUMBER_OF_BUTTONS; ++i)
+            {
+                button_texture[i] =
+                   cmngr.Load<Texture2D>(bNames[i]);
+            }
         }
 
         public void update(GameTime gameTime)
@@ -87,7 +112,6 @@ namespace Game1.GUI
             for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
                 _spriteBatch.Draw(button_texture[i], button_rectangle[i], button_color[i]);
         }
-
 
         // wrapper for hit_image_alpha taking Rectangle and Texture
         Boolean hit_image_alpha(Rectangle rect, Texture2D tex, int x, int y)
@@ -175,12 +199,13 @@ namespace Game1.GUI
             }
         }
 
-
         // Logic for each button click goes here
         void take_action_on_button(int i)
         {
             //take action corresponding to which button was clicked
-            switch (i)
+            mDels[i](mGame);
+
+            /*switch (i)
             {
                 case EASY_BUTTON_INDEX:
                     background_color = Color.Green;
@@ -199,13 +224,13 @@ namespace Game1.GUI
                     break;
                 default:
                     break;
-            }
+            }*/
         }
 
         // Logic for each key down event goes here
         void handle_keyboard()
         {
-            last_keyboard_state = keyboard_state;
+            /*last_keyboard_state = keyboard_state;
             keyboard_state = Keyboard.GetState();
             Keys[] keymap = (Keys[])keyboard_state.GetPressedKeys();
             foreach (Keys k in keymap)
@@ -229,8 +254,7 @@ namespace Game1.GUI
                     default:
                         break;
                 }
-
-            }
+            }*/
         }
     }
 }
