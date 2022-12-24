@@ -26,6 +26,11 @@ namespace Game1.Entity
             Hp = hp;
         }
 
+        public void reset()
+        {
+
+        }
+
         public override void loadContent(ContentManager cmngr)
         {
             objTexture = cmngr.Load<Texture2D>("player1");

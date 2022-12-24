@@ -16,6 +16,7 @@ namespace Game1.Entity
     {
 
         public FruitType type;
+        public bool isVisible;
 
         public Fruit(String n, Vector2 pos, Vector2 speed, FruitType type)
         {
@@ -23,6 +24,7 @@ namespace Game1.Entity
             position = pos;
             velocity = speed;
             this.type = type;
+            this.isVisible = true;
         }
 
         public override void loadContent(ContentManager cmngr)
@@ -38,28 +40,31 @@ namespace Game1.Entity
         {
             //throw new NotImplementedException();
 
-            Rectangle? srcRect = null;
-            if (this.type == FruitType.Apple)//Good apple
+            if (objTexture != null)
             {
-                srcRect = new Rectangle(0, 0, objTexture.Width, objTexture.Height/2);
-            }
-            else
-            {
-                srcRect = new Rectangle(0, objTexture.Height/2, objTexture.Width, objTexture.Height/2);
-            }
+                Rectangle? srcRect = null;
+                if (this.type == FruitType.Apple)//Good apple
+                {
+                    srcRect = new Rectangle(0, 0, objTexture.Width, objTexture.Height / 2);
+                }
+                else
+                {
+                    srcRect = new Rectangle(0, objTexture.Height / 2, objTexture.Width, objTexture.Height / 2);
+                }
 
-            destRect = new Rectangle(   
-                  (int)position.X,
-                  (int)position.Y,
-                  objTexture.Width,
-                  objTexture.Height / 2);
+                destRect = new Rectangle(
+                      (int)position.X,
+                      (int)position.Y,
+                      objTexture.Width,
+                      objTexture.Height / 2);
 
-            _spriteBatch.Draw(
-              objTexture,
-              destRect,
-              srcRect, //sourceRect
-              Color.White
-            );
+                _spriteBatch.Draw(
+                  objTexture,
+                  destRect,
+                  srcRect, //sourceRect
+                  Color.White
+                );
+            }
         }
 
         public override void Update(GameTime gameTime)

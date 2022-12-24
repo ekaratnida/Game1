@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 
 namespace Game1
 {
@@ -37,6 +38,8 @@ namespace Game1
         private SpriteBatch _spriteBatch;
         public static readonly int screenWidth = 1024;
         public static readonly int screenHeight = 768;
+        FruitType[] fruitTypes;
+        int numFruits;
 
         public MainGame()
         {
@@ -57,9 +60,9 @@ namespace Game1
                     3
                 );
 
-            int numFruits = 10;
+            numFruits = 10;
             
-            FruitType[] fruitTypes = { FruitType.Apple, FruitType.Toxic};
+            fruitTypes = new FruitType[]{ FruitType.Apple, FruitType.Toxic};
             
             for(int i=0; i < numFruits; ++i)
             {
@@ -145,8 +148,37 @@ namespace Game1
                             fruits[i] = null;
                             fruits.RemoveAt(i);
                             Scores.Score += 1;
+
                             if ( Scores.Score >= 3)
                             {
+                                Scores.Score = 0;
+                                player.Hp = 3;
+                                player.position = new(screenWidth / 2, screenHeight - 100);
+                                player.velocity = new(200, 0);
+
+                                for(int fc = 0; fc < fruits.Count; fc++)
+                                {
+                                    fruits[fc] = null;
+                                }
+
+                                fruits.Clear();
+
+                                for (int f = 0; f < numFruits; ++f)
+                                {
+                                    Fruit fruit = new Fruit(
+                                      "fr_" + f,
+                                      new Vector2(new Random().Next(screenWidth), 0),
+                                      new Vector2(0, new Random().Next(100) + 100),
+                                      fruitTypes[new Random().Next(0, fruitTypes.Length)]
+                                    );
+
+                                    fruit.loadContent(Content);
+
+                                    //Debug.WriteLine(fruit.position);
+                                    fruits.Add(fruit);
+                                }
+
+
                                 currentState = GameState.ClearGame;
                             }
                         }
@@ -158,10 +190,37 @@ namespace Game1
                                 {
                                     player.Hp--;
                                 }
-                                
-                                if(player.Hp == 0)
+
+                                //player die, reset
+                                if (player.Hp == 0)
                                 {
-                                    //player die
+                                    Scores.Score = 0;
+                                    player.Hp = 3;
+                                    player.position = new(screenWidth / 2, screenHeight - 100);
+                                    player.velocity = new(200, 0);
+
+                                    for (int fc = 0; fc < fruits.Count; fc++)
+                                    {
+                                        fruits[fc] = null;
+                                    }
+
+                                    fruits.Clear();
+
+                                    for (int f = 0; f < numFruits; ++f)
+                                    {
+                                        Fruit fruit = new Fruit(
+                                          "fr_" + f,
+                                          new Vector2(new Random().Next(screenWidth), 0),
+                                          new Vector2(0, new Random().Next(100) + 100),
+                                          fruitTypes[new Random().Next(0, fruitTypes.Length)]
+                                        );
+
+                                        fruit.loadContent(Content);
+
+                                        //Debug.WriteLine(fruit.position);
+                                        fruits.Add(fruit);
+                                    }
+
                                     currentState = GameState.GameOver;
                                 }
                             }
@@ -214,7 +273,12 @@ namespace Game1
                 player.Draw(_spriteBatch);
 
                 for (int i = 0; i < fruits.Count - 1; ++i)
-                    fruits[i].Draw(_spriteBatch);
+                {
+                    if (fruits[i] != null)
+                    {
+                        fruits[i].Draw(_spriteBatch);
+                    }
+                }
 
             }
             else if ( currentState == GameState.GameOver )
