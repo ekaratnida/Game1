@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Security.AccessControl;
 
 namespace Game1
 {
@@ -62,7 +61,7 @@ namespace Game1
 
             numFruits = 10;
             
-            fruitTypes = new FruitType[]{ FruitType.Apple, FruitType.Toxic};
+            fruitTypes = new FruitType[]{ FruitType.Apple, FruitType.Toxic };
             
             for(int i=0; i < numFruits; ++i)
             {
