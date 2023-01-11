@@ -1,5 +1,6 @@
 # Outline
 ### 1. Intro. to game development
+   - https://drive.google.com/file/d/1SSgdyRZCSw5ohWkI2vXngWg74upfLiJO/view?usp=sharing merge with
    - https://drive.google.com/file/d/1RwNDSAgc4-CURJusUwMUVxoM_m7iFMwa/view?usp=sharing <br/>
    - genre link https://slideplayer.com/slide/13109321/ <br/>
 ### 2. Game design <br/>
