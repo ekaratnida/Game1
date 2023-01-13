@@ -1,8 +1,9 @@
 # Outline
 ### 1. Intro. to game development
-   - https://drive.google.com/file/d/1SSgdyRZCSw5ohWkI2vXngWg74upfLiJO/view?usp=sharing merge with
-   - https://drive.google.com/file/d/1RwNDSAgc4-CURJusUwMUVxoM_m7iFMwa/view?usp=sharing <br/>
-   - genre link https://slideplayer.com/slide/13109321/ <br/>
+   - 1-1 Introduction: https://drive.google.com/file/d/1SSgdyRZCSw5ohWkI2vXngWg74upfLiJO/view?usp=sharing merge with
+   - 1-2 History of game: https://drive.google.com/file/d/1mzVmEZ74mX8CaP3v3q3K5Ry4koMsiQVU/view?usp=share_link <br/>
+   - 1-3 Game genre:  <br/>
+   
 ### 2. Game design <br/>
  2.1 game design elements <br/>
  2.2 Design your own game <br/>
