@@ -1,10 +1,13 @@
 # Outline
 ### 1. Intro. to game development
-   - 1-1 Introduction: https://drive.google.com/file/d/1SSgdyRZCSw5ohWkI2vXngWg74upfLiJO/view?usp=sharing merge with
+   - 1-1 Introduction: GEA2Chapter1.pptx
    - 1-2 History of game: https://drive.google.com/file/d/1mzVmEZ74mX8CaP3v3q3K5Ry4koMsiQVU/view?usp=share_link <br/>
    
 ### 2. Game design <br/>
- 2.1 game design elements <br/>
+ 2.1 game design elements 
+ - https://drive.google.com/file/d/1SSgdyRZCSw5ohWkI2vXngWg74upfLiJO/view?usp=sharing
+ - Story
+ - https://drive.google.com/file/d/1bLPi0WGHiuGZey8DeNSyYdgOWOQZB1BO/view?usp=share_link
  2.2 Design your own game <br/>
 
 # Lunch
