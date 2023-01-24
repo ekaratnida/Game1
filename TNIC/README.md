@@ -9,7 +9,7 @@
  - https://drive.google.com/file/d/1SSgdyRZCSw5ohWkI2vXngWg74upfLiJO/view?usp=sharing
  - Game design https://drive.google.com/file/d/1bLPi0WGHiuGZey8DeNSyYdgOWOQZB1BO/view?usp=share_link
  2.2 Design your own game <br/>
- - Brain strom
+ - Brainstorm
  
 # Lunch
 
