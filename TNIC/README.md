@@ -18,11 +18,9 @@
    - 3.1 Unity3D https://unity.com/
    - 3.2 Unreal engine https://www.unrealengine.com/en-US
    - 3.3 Godot https://godotengine.org/
+   - 3.4 Phaser https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser/Initialize_the_framework
 
-### 4. Game implementation
-   - https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser/Initialize_the_framework
-
-### 5. Present your game.
+### 4. Present your game.
 
 ### Ref:
 [1] https://ocw.mit.edu/courses/cms-611j-creating-video-games-fall-2014/pages/lecture-slides-and-readings/
