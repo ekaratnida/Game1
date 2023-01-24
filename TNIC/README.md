@@ -16,6 +16,7 @@
 
 ### 3. Introduction to Game engine <br/>
    - 3.1 Unity3D https://unity.com/
+      - Manual: https://docs.unity3d.com/2022.2/Documentation/Manual/
    - 3.2 Unreal engine https://www.unrealengine.com/en-US
    - 3.3 Godot https://godotengine.org/
    - 3.4 Phaser https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser/Initialize_the_framework
