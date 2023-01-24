@@ -14,9 +14,9 @@
  
 # Lunch
 
-### 3. Introductio to Game development tools <br/>
+### 3. Introduction to Game engine <br/>
    - 3.1 Unity3D https://unity.com/
-   - 3.2 Unreal https://www.unrealengine.com/en-US
+   - 3.2 Unreal engine https://www.unrealengine.com/en-US
    - 3.3 Godot https://godotengine.org/
 
 ### 4. Game implementation
