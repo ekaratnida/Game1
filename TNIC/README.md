@@ -6,7 +6,7 @@
    
 ### 2. Game design <br/>
  2.1 game design elements 
- - https://drive.google.com/file/d/1SSgdyRZCSw5ohWkI2vXngWg74upfLiJO/view?usp=sharing
+ - https://drive.google.com/file/d/1UC5ASznBEt-YU19CnD6EEu8WfgKa2d09/view?usp=share_link
  - Game design https://drive.google.com/file/d/1bLPi0WGHiuGZey8DeNSyYdgOWOQZB1BO/view?usp=share_link </br>
  2.2 Design your own game <br/>
  - Brainstorm
