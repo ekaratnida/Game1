@@ -5,16 +5,19 @@
    - 1-3 History of game: https://drive.google.com/file/d/1mzVmEZ74mX8CaP3v3q3K5Ry4koMsiQVU/view?usp=share_link <br/>
    
 ### 2. Game design <br/>
- 2.1 game design elements 
- - https://drive.google.com/file/d/1UC5ASznBEt-YU19CnD6EEu8WfgKa2d09/view?usp=share_link
- - Game design https://drive.google.com/file/d/1bLPi0WGHiuGZey8DeNSyYdgOWOQZB1BO/view?usp=share_link </br>
+ 2.1 game design elements
+   - https://drive.google.com/file/d/1UC5ASznBEt-YU19CnD6EEu8WfgKa2d09/view?usp=share_link
+   - https://drive.google.com/file/d/1bLPi0WGHiuGZey8DeNSyYdgOWOQZB1BO/view?usp=share_link </br>
+ 
  2.2 Design your own game <br/>
- - Brainstorm
+   - Brainstorm
  
 # Lunch
 
 ### 3. Introductio to Game development tools <br/>
-   - 3.1 
+   - 3.1 Unity3D https://unity.com/
+   - 3.2 Unreal https://www.unrealengine.com/en-US
+   - 3.3 Godot https://godotengine.org/
 
 ### 4. Game implementation
    - https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser/Initialize_the_framework
