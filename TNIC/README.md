@@ -2,7 +2,6 @@
 ### 1. Intro. to game development
    - 1-1 Introduction: https://drive.google.com/file/d/1SSgdyRZCSw5ohWkI2vXngWg74upfLiJO/view?usp=sharing merge with
    - 1-2 History of game: https://drive.google.com/file/d/1mzVmEZ74mX8CaP3v3q3K5Ry4koMsiQVU/view?usp=share_link <br/>
-   - 1-3 Game genre:  <br/>
    
 ### 2. Game design <br/>
  2.1 game design elements <br/>
@@ -10,9 +9,9 @@
 
 # Lunch
 
-### 3. Game tools <br/>
-   - Game engine
-   - Game framework
+### 3. Introductio to Game development tools <br/>
+   3.1 Game engine <br/>
+   3.2 Game framework <br/>
 ### 4. Game implementation
    - https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser/Initialize_the_framework
 ### 5. Present your game.
