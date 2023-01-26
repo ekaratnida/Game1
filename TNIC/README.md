@@ -1,3 +1,6 @@
+# Link to this page 
+- <H2> shorturl.at/ampG1 </H2>
+
 # Outline
 ### 1. Intro. to game development
    - 1-1 Introduction: https://drive.google.com/file/d/1qDBgEwAkbOHUjWh0bvNt1odYpS-Fy0Cc/view?usp=share_link
