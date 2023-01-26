@@ -4,7 +4,7 @@
 # Outline
 ### 1. Intro. to game development
    - 1-1 Introduction: https://drive.google.com/file/d/1qDBgEwAkbOHUjWh0bvNt1odYpS-Fy0Cc/view?usp=share_link
-   - 1-2 Game development: https://docs.google.com/presentation/d/1Op7CuNHPq_iAj_CUnwoNY3cwfrx0f8Cg/edit?usp=share_link&ouid=113934240306672779486&rtpof=true&sd=true
+   - 1-2 Game development: https://drive.google.com/file/d/1Ayx4aMfHNM51oChBgALA_y9klg8Z6nww/view?usp=sharing
    - 1-3 History of game: https://drive.google.com/file/d/1mzVmEZ74mX8CaP3v3q3K5Ry4koMsiQVU/view?usp=share_link <br/>
    
 ### 2. Game design <br/>
@@ -19,7 +19,7 @@
 
 ### 3. Introduction to Game engine <br/>
    - 3.1 Unity3D https://unity.com/
-      - Manual: https://docs.unity3d.com/2022.2/Documentation/Manual/
+      - Tutorial: https://learn.unity.com/project/2d-platformer-template
    - 3.2 Unreal engine https://www.unrealengine.com/en-US
    - 3.3 Godot https://godotengine.org/
    - 3.4 Phaser https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser/Initialize_the_framework
